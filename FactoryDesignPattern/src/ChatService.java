@@ -1,3 +1,6 @@
+import java.nio.file.Path;
+import java.util.List;
+
 public class ChatService {
 
 //    private OpenAiClient openAiClient;
@@ -8,8 +11,18 @@ public class ChatService {
     private AiProviders aiProviders;
 
     public ChatService(String modelName) {
-        AiProviders aiProviders = AiProviderFactory.getProviderFactory(modelName);
-        this.aiServiceClient = aiProviders.getChatClient();
+//        for(String modelName: modelNames) {
+//            try {
+//                this.aiProviders = AiProviderFactory.getProviderFactory(modelName);
+//            }
+//            catch (Exception e) {
+//                System.out.println(modelName + " is not available. Trying for second model");
+//            }
+//        }
+//        if(aiProviders==null) {
+//            throw new RuntimeException("Please try after some time");
+//        }
+         this.aiServiceClient = aiProviders.getChatClient();
         this.aiEmbeddingClient = aiProviders.getEmbeddingClient();
     }
 

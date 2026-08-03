@@ -7,7 +7,6 @@ public class Client {
         String modelName = sc.next();
         ChatService chatService = new ChatService(modelName);
 
-
         chatService.complete("Hey Gpt");
     }
 }
