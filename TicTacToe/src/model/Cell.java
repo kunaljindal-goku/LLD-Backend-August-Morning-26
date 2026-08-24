@@ -12,6 +12,7 @@ public class Cell {
     public Cell(int row, int col) {
         this.row = row;
         this.col = col;
+        this.cellState = CellState.EMPTY;
     }
 
     public int getRow() {
@@ -44,5 +45,14 @@ public class Cell {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void printCell() {
+        if(this.cellState.equals(CellState.EMPTY)) {
+            System.out.print("| |");
+        }
+        else {
+            System.out.print("| "+this.player.getSymbol().getImg() + " |");
+        }
     }
 }

@@ -13,6 +13,9 @@ public class RowWinningStrategy implements WinningStrategy{
 
     public RowWinningStrategy() {
         this.rowsMap = new HashMap[100];
+        for(int i=0;i<100;i++) {
+            rowsMap[i] = new HashMap<>();
+        }
     }
 
     @Override

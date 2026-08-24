@@ -6,4 +6,9 @@ public class BotPlayer extends Player{
     public BotPlayer(String name, int playerId, Symbol symbol) {
         super(name, playerId, symbol, PlayerType.BOT);
     }
+
+    @Override
+    public Move makeMove() {
+        return null;
+    }
 }

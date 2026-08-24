@@ -2,20 +2,20 @@ package model;
 
 public class Symbol {
 
-    char X;
+    char img;
     String name;
 
-    public Symbol(char x, String name) {
-        X = x;
+    public Symbol(char img, String name) {
+        this.img = img;
         this.name = name;
     }
 
-    public char getX() {
-        return X;
+    public char getImg() {
+        return img;
     }
 
-    public void setX(char x) {
-        X = x;
+    public void setImg(char img) {
+        this.img = img;
     }
 
     public String getName() {

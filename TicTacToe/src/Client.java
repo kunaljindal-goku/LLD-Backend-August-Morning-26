@@ -3,11 +3,10 @@ import model.Game;
 import model.HumanPlayer;
 import model.Player;
 import model.Symbol;
+import model.enums.GameState;
 import strategy.RowWinningStrategy;
 import strategy.WinningStrategy;
 
-import java.time.chrono.HijrahChronology;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Client {
@@ -15,22 +14,31 @@ public class Client {
     public static void main(String[] args) {
 
         List<Player> players = List.of(
-                new HumanPlayer("Goku", 1, new Symbol('X', "Goku's sumbol")),
-                new HumanPlayer("Vegeta", 2, new Symbol('O', "Vegeta's's sumbol")
+                new HumanPlayer("Kunal", 1, new Symbol('X', "Goku's sumbol")),
+                new HumanPlayer("Sainath", 2, new Symbol('O', "Vegeta's's sumbol")
                 ));
 
-        int boardSize = 2;
+        int boardSize = 3;
 
         List<WinningStrategy> winningStrategies = List.of(new RowWinningStrategy());
 
         GameController gameController = new GameController();
         Game game = gameController.startGame(boardSize,players,winningStrategies);
 
-        while(/status in progress/) {
-            // makeMove -> checlWinner
-            // printBoard
+        while(gameController.getGameState(game).equals(GameState.IN_PROGRESS)) {
+           gameController.printBoard(game);
+           gameController.makeMove(game);
         }
 
+        gameController.printBoard(game);
+
+        if(gameController.getGameState(game).equals(GameState.DRAW)) {
+            System.out.println("Game DRAWN");
+        }
+        else {
+            Player winner = gameController.getWinner(game);
+            System.out.println(winner.getName() + " has WON!!");
+        }
 
     }
 }

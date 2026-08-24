@@ -1,6 +1,7 @@
 package model;
 
 import exception.InvalidBoardSizeException;
+import model.enums.CellState;
 import model.enums.GameState;
 import strategy.WinningStrategy;
 
@@ -29,7 +30,7 @@ public class Game {
         this.moves = new ArrayList<>();
         this.winner = null;
         this.currPlayerTurn = 0;
-        this.gameState = gameState;
+        this.gameState = GameState.IN_PROGRESS;
         this.winningStrategies = winningStrategies;
     }
 
@@ -87,6 +88,43 @@ public class Game {
 
     public void setWinningStrategies(List<WinningStrategy> winningStrategies) {
         this.winningStrategies = winningStrategies;
+    }
+
+    public void makeMove() {
+        Player currPlayer = players.get(currPlayerTurn);
+        currPlayerTurn = (currPlayerTurn+1)%players.size();
+
+        System.out.println("It's "+currPlayer.getName()+"'s turn");
+        Move move = currPlayer.makeMove();
+        validateMove(move);
+
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+
+        this.getBoard().getCells().get(row).get(col).setPlayer(currPlayer);
+        this.getBoard().getCells().get(row).get(col).setCellState(CellState.FILLED);
+        this.moves.add(move);
+
+        if(checkWinner(move)) {
+            this.setGameState(GameState.ENDED);
+            this.winner = currPlayer;
+        }
+        else if(moves.size()==board.getSize()*board.getSize()) {
+            this.setGameState(GameState.DRAW);
+        }
+    }
+
+    private void validateMove(Move move) {
+        return;
+    }
+
+    private boolean checkWinner(Move move) {
+        for(WinningStrategy winningStrategy: winningStrategies) {
+            if(winningStrategy.checkWinner(move,this.getBoard())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static class Builder {
