@@ -1,8 +1,6 @@
 import controller.GameController;
-import model.Game;
-import model.HumanPlayer;
-import model.Player;
-import model.Symbol;
+import model.*;
+import model.enums.BotPlayingStrategyType;
 import model.enums.GameState;
 import strategy.RowWinningStrategy;
 import strategy.WinningStrategy;
@@ -15,7 +13,7 @@ public class Client {
 
         List<Player> players = List.of(
                 new HumanPlayer("Kunal", 1, new Symbol('X', "Goku's sumbol")),
-                new HumanPlayer("Sainath", 2, new Symbol('O', "Vegeta's's sumbol")
+                new BotPlayer("Botty", 2, new Symbol('O', "Botty's sumbol"), BotPlayingStrategyType.EASY
                 ));
 
         int boardSize = 3;
@@ -23,19 +21,18 @@ public class Client {
         List<WinningStrategy> winningStrategies = List.of(new RowWinningStrategy());
 
         GameController gameController = new GameController();
-        Game game = gameController.startGame(boardSize,players,winningStrategies);
+        Game game = gameController.startGame(boardSize, players, winningStrategies);
 
-        while(gameController.getGameState(game).equals(GameState.IN_PROGRESS)) {
-           gameController.printBoard(game);
-           gameController.makeMove(game);
+        while (gameController.getGameState(game).equals(GameState.IN_PROGRESS)) {
+            gameController.printBoard(game);
+            gameController.makeMove(game);
         }
 
         gameController.printBoard(game);
 
-        if(gameController.getGameState(game).equals(GameState.DRAW)) {
+        if (gameController.getGameState(game).equals(GameState.DRAW)) {
             System.out.println("Game DRAWN");
-        }
-        else {
+        } else {
             Player winner = gameController.getWinner(game);
             System.out.println(winner.getName() + " has WON!!");
         }

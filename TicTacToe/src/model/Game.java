@@ -95,7 +95,7 @@ public class Game {
         currPlayerTurn = (currPlayerTurn+1)%players.size();
 
         System.out.println("It's "+currPlayer.getName()+"'s turn");
-        Move move = currPlayer.makeMove();
+        Move move = currPlayer.makeMove(this.getBoard());
         validateMove(move);
 
         int row = move.getCell().getRow();

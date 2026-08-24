@@ -14,7 +14,7 @@ public class HumanPlayer extends Player{
     }
 
     @Override
-    public Move makeMove() {
+    public Move makeMove(Board board) {
         System.out.println("Please enter row and col in which you want to make the move");
         int row = sc.nextInt();
         int col = sc.nextInt();
