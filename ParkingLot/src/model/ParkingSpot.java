@@ -5,7 +5,9 @@ import model.enums.VehicleType;
 
 public class ParkingSpot extends BaseEntity{
 
-    String spotNumber;
-    VehicleType vehicleType;
-    ParkingSpotStatus parkingSpotStatus;
+    private String spotNumber;
+    private VehicleType vehicleType;
+    private ParkingSpotStatus parkingSpotStatus;
+    private ParkingFloor parkingFloor; // bi-directional relationship between floor and spot
 }
+
