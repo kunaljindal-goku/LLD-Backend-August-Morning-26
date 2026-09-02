@@ -17,6 +17,8 @@ import strategy.SlotAssignmentStrategy;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TicketService {
 
@@ -24,6 +26,7 @@ public class TicketService {
     private final SlotAssignmentStrategy assignmentStrategy;
     private final VehicleRepository vehicleRepository;
     private final ParkingSpotRepository spotRepository;
+    private final Lock spotLock = new ReentrantLock();
 
     public TicketService(GateRepository gateRepository,
                          SlotAssignmentStrategy assignmentStrategy,
@@ -38,12 +41,12 @@ public class TicketService {
     public Ticket issueTicket(IssueTicketRequestDto request) {
         // step 1. validations
         Optional<Gate> gateOptional = gateRepository.findById(request.getGateId());
-        if(gateOptional.isEmpty()) {
-            throw new GateNotFoundException("Invalid gate id: "+request.getGateId());
+        if (gateOptional.isEmpty()) {
+            throw new GateNotFoundException("Invalid gate id: " + request.getGateId());
         }
 
         Gate gate = gateOptional.get();
-        if(!gate.getGateType().equals(GateType.ENTRY)) {
+        if (!gate.getGateType().equals(GateType.ENTRY)) {
             throw new RuntimeException("Entry is not allowed through exit gate");
         }
 
@@ -55,15 +58,18 @@ public class TicketService {
         Vehicle savedVehicle = vehicleRepository.save(vehicle);
 
         // Step 3 - Slot assignment
-        Optional<ParkingSpot> optionalParkingSpot = assignmentStrategy
-                .assignSpot(spotRepository.findAll(), request.getVehicleType());
-        if(optionalParkingSpot.isEmpty()) {
-            throw new SlotNotAvailableException("Sorry! No slots available at the moment");
-        }
+        ParkingSpot assignedSpot;
+        synchronized (spotLock) {
+            Optional<ParkingSpot> optionalParkingSpot = assignmentStrategy
+                    .assignSpot(spotRepository.findAll(), request.getVehicleType());
+            if (optionalParkingSpot.isEmpty()) {
+                throw new SlotNotAvailableException("Sorry! No slots available at the moment");
+            }
 
-        ParkingSpot assignedSpot = optionalParkingSpot.get();
-        assignedSpot.setParkingSpotStatus(ParkingSpotStatus.OCCUPIED);
-        spotRepository.save(assignedSpot);
+            assignedSpot = optionalParkingSpot.get();
+            assignedSpot.setParkingSpotStatus(ParkingSpotStatus.OCCUPIED);
+            spotRepository.save(assignedSpot);
+        }
 
         // Step 4 - Issue ticket
         Ticket ticket = new Ticket();
