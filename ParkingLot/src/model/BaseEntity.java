@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class BaseEntity {
 
-    private int id;
+    private Integer id;
     private Date createdAt;
     private Date updatedAt;
 
@@ -12,7 +12,7 @@ public class BaseEntity {
     // private String updatedBy;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
