@@ -24,5 +24,4 @@ public class BaseEntity {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
-
 }
