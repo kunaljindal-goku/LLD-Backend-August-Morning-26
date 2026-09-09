@@ -1,5 +1,6 @@
 package com.scaler.BookMyShow.models;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@Entity
 public class Theatre extends BaseEntity{
 
     private String name;

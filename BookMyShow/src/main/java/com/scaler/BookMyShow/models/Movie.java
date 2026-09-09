@@ -1,6 +1,7 @@
 package com.scaler.BookMyShow.models;
 
 import com.scaler.BookMyShow.models.enums.Feature;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -15,9 +16,19 @@ import java.util.List;
 public class Movie extends BaseEntity{
 
     private String title;
+
+    @ElementCollection
     private List<String> cast;
+
     private String genre;
+
+    @ElementCollection
     private List<String> languages;
+
+    @ElementCollection
     private List<Feature> features;
+
     private String description;
+
+    private int rating;
 }

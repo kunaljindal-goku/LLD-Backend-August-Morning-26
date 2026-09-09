@@ -1,6 +1,9 @@
 package com.scaler.BookMyShow.models;
 
 import com.scaler.BookMyShow.models.enums.Feature;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,11 +13,17 @@ import java.util.Scanner;
 
 @Getter
 @Setter
+@Entity(name = "shows")
 public class Show extends BaseEntity{
 
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
     private Movie movie;
     private Date startTime;
     private Date endTime;
+
+    @ManyToOne
+    @JoinColumn(name = "screen_id")
     private Screen screen;
     private List<Feature> features;
 }
