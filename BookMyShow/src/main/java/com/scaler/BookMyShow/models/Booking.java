@@ -1,6 +1,6 @@
 package com.scaler.BookMyShow.models;
 
-import com.scaler.BookMyShow.models.enums.TicketStatus;
+import com.scaler.BookMyShow.models.enums.BookingStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +10,10 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Ticket extends BaseEntity{
+public class Booking extends BaseEntity{
 
     private String ticketNumber;
-    private TicketStatus ticketStatus;
+    private BookingStatus bookingStatus;
     private double amount;
 
     @ManyToOne

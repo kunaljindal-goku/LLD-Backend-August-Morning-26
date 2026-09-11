@@ -6,7 +6,6 @@ import com.scaler.BookMyShow.models.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.SoftDelete;
 
 @Getter
 @Setter
@@ -26,5 +25,5 @@ public class Payment extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
-    private Ticket ticket;
+    private Booking booking;
 }

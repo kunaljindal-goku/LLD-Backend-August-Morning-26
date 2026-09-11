@@ -1,6 +1,6 @@
 package com.scaler.BookMyShow.models.enums;
 
-public enum TicketStatus {
+public enum BookingStatus {
 
     PENDING,
     CONFIRMED,
