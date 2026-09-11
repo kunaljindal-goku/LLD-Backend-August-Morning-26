@@ -13,8 +13,9 @@ import java.util.List;
 public class User extends BaseEntity{
 
     private String email;
-    private String name;
+    private String name;  // findByName(String name)
     private String mobileNo;
+    private String password;
 
     @OneToMany(mappedBy = "user")
     private List<Booking> bookings;

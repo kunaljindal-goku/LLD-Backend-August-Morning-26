@@ -7,6 +7,7 @@ import com.scaler.BookMyShow.models.enums.ResponseStatus;
 import com.scaler.BookMyShow.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class BookingController {
