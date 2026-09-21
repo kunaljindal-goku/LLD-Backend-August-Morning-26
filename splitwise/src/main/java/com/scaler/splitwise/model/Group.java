@@ -8,16 +8,16 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity(name = "groups")
+@Entity(name = "groups_info")
 public class Group extends BaseEntity{
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "groups")
     private List<User> users;
 
     @OneToMany
-    @JoinColumn(name = "expense_id") // creates on many
+    @JoinColumn(name = "group_id") // creates on many
     private List<Expense> expenses;
 
     @ManyToOne
