@@ -31,6 +31,5 @@ public class SplitwiseApplication implements CommandLineRunner {
 		Scanner sc = new Scanner(System.in);
 		String inputCommand = sc.nextLine();
 		commandExecutor.executeCommand(inputCommand);
-
  	}
 }

@@ -11,6 +11,6 @@ public class DeleteUserCommand implements Command{
 
     @Override
     public void execute(String command) {
-
+        // call delete api
     }
 }
